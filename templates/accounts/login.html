@@ -1,70 +1,72 @@
-{% extends "admin/base_site.html" %}
-{% load i18n static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block extrastyle %}{{ block.super }}
-<link rel="stylesheet" href="{% static "admin/css/login.css" %}">
-{{ form.media }}
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
 
-{% block bodyclass %}{{ block.super }} login{% endblock %}
+        body {
+            background: #d8d8d8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-{% block usertools %}{% endblock %}
+        .main-container {
+            width: 400px;
+            height: 300px;
+            border: 1px solid rgb(206, 205, 205);
+            border-radius: 5px;
+            box-shadow: 7px 5px 40px -25px;
+            background-color: white;
 
-{% block nav-global %}{% endblock %}
+        }
 
-{% block nav-sidebar %}{% endblock %}
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+            padding: 10px;
+            background-color: rgb(0, 162, 255);
+        }
 
-{% block content_title %}{% endblock %}
+        .container {
+            padding: 15px;
+        }
+        
+        .error{
+            border: 2px solid red;
+            color: red;
+            padding: 3px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 5px;
+        }
+    </style>
+</head>
 
-{% block nav-breadcrumbs %}{% endblock %}
-
-{% block content %}
-{% if form.errors and not form.non_field_errors %}
-<p class="errornote">
-    {% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct
-    the errors below.{% endblocktranslate %}
-</p>
-{% endif %}
-
-{% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<p class="errornote">
-    {{ error }}
-</p>
-{% endfor %}
-{% endif %}
-
-<div id="content-main">
-
-    {% if user.is_authenticated %}
-    <p class="errornote">
-        {% blocktranslate trimmed %}
-        You are authenticated as {{ username }}, but are not authorized to
-        access this page. Would you like to login to a different account?
-        {% endblocktranslate %}
-    </p>
-    {% endif %}
-
-    <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
-        <div class="form-row">
-            {{ form.username.errors }}
-            {{ form.username.label_tag }} {{ form.username }}
+<body>
+    <div class="main-container">
+        <div class="header">Login Form</div>
+        <div class="errors">
+            <div class="error">User not found</div>
+            <div class="error">User not found</div>
+            <div class="error">User not found</div>
         </div>
-        <div class="form-row">
-            {{ form.password.errors }}
-            {{ form.password.label_tag }} {{ form.password }}
-            <input type="hidden" name="next" value="{{ next }}">
-        </div>
-        {% url 'admin_password_reset' as password_reset_url %}
-        {% if password_reset_url %}
-        <div class="password-reset-link">
-            <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
-        </div>
-        {% endif %}
-        <div class="submit-row">
-            <input type="submit" value="{% translate 'Log in' %}">
-        </div>
-    </form>
+        <div class="container">
 
-</div>
-{% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>

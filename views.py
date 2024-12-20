@@ -4,9 +4,9 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
-def signup(request):
+def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -15,7 +15,7 @@ def signup(request):
             return redirect('admin:index')  # Redirect to the admin index or any desired page
     else:
         form = UserCreationForm()
-    return render(request, 'accounts/signup.html', {'form': form})
+    return render(request, 'accounts/register.html', {'form': form})
 
 
 def loginView(request):
@@ -28,3 +28,7 @@ def loginView(request):
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', context={'form': form})
+
+def logoutView(request):
+    logout(request)
+    return redirect('/')
